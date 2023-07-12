@@ -1,6 +1,6 @@
 const apiKey = "9c40b7b4fe68bbf8e50b8bc712010a8a";
 const cityName = document.getElementById("text-input");
-const weatherData = document.getElementById("weatherData");
+const weatherDataElement = document.getElementById("weatherData");
 
 document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault();
@@ -27,18 +27,25 @@ async function getWeatherData(cityValue) {
       `Wind Speed : ${data.wind.speed} m/s`,
     ];
 
-    weatherData.querySelector(
+    weatherDataElement.querySelector(
       ".icon"
-    ).innerHTML = `<img src=http://openweathermap.org/img/wn/${icon}.png alt="Weather Icon" >`;
+    ).innerHTML = `<img src="http://openweathermap.org/img/wn/${icon}.png" alt="Weather Icon" >`;
 
-    weatherData.querySelector(".temperature").textContent = `${temp}°C`;
+    weatherDataElement.querySelector(".temperature").textContent = `${temp}°C`;
 
-    weatherData.querySelector(".description").textContent = description;
+    weatherDataElement.querySelector(".description").textContent = description;
 
-    weatherData.querySelector(".details").innerHTML = details
+    weatherDataElement.querySelector(".details").innerHTML = details
       .map((detail) => `<div>${detail}</div>`)
       .join("");
   } catch (error) {
-    console.log(error);
+    weatherDataElement.querySelector(".icon").innerHTML = "";
+
+    weatherDataElement.querySelector(".temperature").textContent = "";
+
+    weatherDataElement.querySelector(".description").textContent =
+      "Enter a Valid City Name";
+
+    weatherDataElement.querySelector(".details").innerHTML = "";
   }
 }
